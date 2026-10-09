@@ -1456,6 +1456,29 @@
       });
     });
   </script>
+
+  <!-- ============ SHOW THE LOGGED-IN USER (name, initials, welcome title) ============ -->
+  <script>
+    fetch('/edushare/backend/auth/whoami.php')
+      .then(function(r) { return r.json(); })
+      .then(function(me) {
+        if (!me.logged_in) return;   // not logged in: keep the sample text
+
+        var chip = document.querySelector('.userchip');
+        if (chip) {
+          var initials = me.name.split(' ').map(function(w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+          chip.querySelector('.avatar').textContent = initials;
+          var spans = chip.querySelectorAll('span');
+          spans[spans.length - 1].textContent = me.name;
+        }
+
+        var title = document.querySelector('.page-head h1');
+        if (title && title.textContent.indexOf('Welcome,') === 0) {
+          title.textContent = 'Welcome, ' + (me.role === 'donor' ? me.name.split(' ')[0] : me.name);
+        }
+      })
+      .catch(function() {});
+  </script>
 </body>
 
 </html>

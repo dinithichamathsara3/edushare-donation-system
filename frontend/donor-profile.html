@@ -1383,19 +1383,20 @@
           <div></div>
         </div>
 
-        <div class="panel" style="max-width:640px;">
+        <form class="panel" id="profileForm" style="max-width:640px;" action="/edushare/backend/donor/update_profile.php" method="post" enctype="multipart/form-data">
+          <p id="profileMsg" style="display:none;padding:10px 12px;border-radius:4px;font-size:.85rem;"></p>
           <div class="form-row">
-            <div class="field"><label>Full name</label><input value="Kasun Perera"></div>
-            <div class="field"><label>Email</label><input value="kasun.perera@example.com"></div>
+            <div class="field"><label>Full name</label><input name="full_name" id="pf_name"></div>
+            <div class="field"><label>Email</label><input id="pf_email" readonly title="Email cannot be changed here"></div>
           </div>
           <div class="form-row">
-            <div class="field"><label>Phone number</label><input value="077 123 4567"></div>
-            <div class="field"><label>Location</label><input value="Negombo"></div>
+            <div class="field"><label>Phone number</label><input name="phone" id="pf_phone"></div>
+            <div class="field"><label>Location</label><input name="location" id="pf_location"></div>
           </div>
-          <div class="field"><label>Address</label><textarea>24 Lake Road, Negombo</textarea></div>
-          <div class="field"><label>Profile image</label><input type="file"></div>
-          <button class="btn btn-primary">Save Changes</button>
-        </div>
+          <div class="field"><label>Address</label><textarea name="address" id="pf_address"></textarea></div>
+          <div class="field"><label>Profile image</label><input type="file" name="profile_image"></div>
+          <button type="submit" class="btn btn-primary">Save Changes</button>
+        </form>
 
       </div>
     </div>
@@ -1426,12 +1427,55 @@
           tab.classList.add('active');
         });
       });
-      document.querySelectorAll('form').forEach(function(f) {
-        f.addEventListener('submit', function(e) {
-          e.preventDefault();
-        });
-      });
     });
+  </script>
+
+  <!-- ============ SHOW THE LOGGED-IN USER (name, initials, welcome title) ============ -->
+  <script>
+    fetch('/edushare/backend/auth/whoami.php')
+      .then(function(r) { return r.json(); })
+      .then(function(me) {
+        if (!me.logged_in) return;   // not logged in: keep the sample text
+
+        var chip = document.querySelector('.userchip');
+        if (chip) {
+          var initials = me.name.split(' ').map(function(w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+          chip.querySelector('.avatar').textContent = initials;
+          var spans = chip.querySelectorAll('span');
+          spans[spans.length - 1].textContent = me.name;
+        }
+
+        var title = document.querySelector('.page-head h1');
+        if (title && title.textContent.indexOf('Welcome,') === 0) {
+          title.textContent = 'Welcome, ' + (me.role === 'donor' ? me.name.split(' ')[0] : me.name);
+        }
+      })
+      .catch(function() {});
+  </script>
+
+  <!-- ============ FILL THE PROFILE FORM WITH THE LOGGED-IN DONOR'S REAL DETAILS ============ -->
+  <script>
+    fetch('/edushare/backend/auth/whoami.php')
+      .then(function(r) { return r.json(); })
+      .then(function(me) {
+        if (!me.profile) return;
+        document.getElementById('pf_name').value = me.profile.full_name || '';
+        document.getElementById('pf_email').value = me.profile.email || '';
+        document.getElementById('pf_phone').value = me.profile.phone || '';
+        document.getElementById('pf_location').value = me.profile.location || '';
+        document.getElementById('pf_address').value = me.profile.address || '';
+      });
+
+    // Show the success / error message sent back by the backend
+    var params = new URLSearchParams(window.location.search);
+    var msg = params.get('success') || params.get('error');
+    if (msg) {
+      var box = document.getElementById('profileMsg');
+      box.textContent = msg;
+      box.style.display = 'block';
+      box.style.background = params.get('success') ? 'var(--forest-tint)' : 'var(--red-tint)';
+      box.style.color = params.get('success') ? 'var(--forest)' : 'var(--red)';
+    }
   </script>
 </body>
 

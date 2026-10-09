@@ -1352,137 +1352,144 @@
 </head>
 
 <body>
+
   <div class="app-shell">
-    <!-- ============ SIDEBAR NAVIGATION ============ -->
+    <!-- ============ SIDEBAR NAVIGATION (dashboard menu) ============ -->
     <aside class="sidebar">
-      <a href="index.html" class="brand"><span class="mark"></span> EduShare</a>
-      <nav>
-        <a href="donor-dashboard.html" class=""><span class="dot"></span> Dashboard</a>
-        <a href="donor-profile.html" class=""><span class="dot"></span> My Profile</a>
-        <a href="donor-add-donation.html" class=""><span class="dot"></span> Add Donation</a>
-        <a href="donor-my-donations.html" class="active"><span class="dot"></span> My Donations</a>
-        <a href="donor-browse-requirements.html" class=""><span class="dot"></span> Browse Requirements</a>
-        <a href="donor-nearby-schools.html" class=""><span class="dot"></span> Nearby Schools</a>
-        <a href="donor-urgent-needs.html" class=""><span class="dot"></span> Urgent Needs</a>
-        <a href="donor-requests.html" class=""><span class="dot"></span> Donation Requests</a>
-        <a href="donor-tracking.html" class=""><span class="dot"></span> Donation Tracking</a>
-        <a href="donor-impact.html" class=""><span class="dot"></span> My Impact</a>
-        <a href="donor-impact-updates.html" class=""><span class="dot"></span> Impact Updates</a>
-        <a href="leaderboard.html" class=""><span class="dot"></span> Best Donors</a>
-        <a href="donor-notifications.html" class=""><span class="dot"></span> Notifications</a>
-      </nav>
+      <a href="index.html" class="brand"><span class="mark"></span>EduShare</a>
+      <nav><a href="donor-dashboard.html" class=""><span class="dot"></span>Dashboard</a><a href="donor-profile.html" class=""><span class="dot"></span>My Profile</a><a href="donor-add-donation.html" class=""><span class="dot"></span>Add Donation</a><a href="donor-my-donations.html" class="active"><span class="dot"></span>My Donations</a><a href="donor-browse-requirements.html" class=""><span class="dot"></span>Browse Requirements</a><a href="donor-nearby-schools.html" class=""><span class="dot"></span>Nearby Schools</a><a href="donor-urgent-needs.html" class=""><span class="dot"></span>Urgent Needs</a><a href="donor-requests.html" class=""><span class="dot"></span>Donation Requests</a><a href="donor-tracking.html" class=""><span class="dot"></span>Donation Tracking</a><a href="donor-impact.html" class=""><span class="dot"></span>My Impact</a><a href="donor-impact-updates.html" class=""><span class="dot"></span>Impact Updates</a><a href="leaderboard.html" class=""><span class="dot"></span>Best Donors</a><a href="donor-notifications.html" class=""><span class="dot"></span>Notifications</a></nav>
       <div class="sidefoot">
-        <a href="index.html"><span class="dot"></span> Log out</a>
+        <a href="index.html"><span class="dot"></span>Log out</a>
       </div>
     </aside>
-
     <div class="main">
-      <!-- ============ TOP BAR ============ -->
+      <!-- ============ DASHBOARD TOP BAR (search + user info) ============ -->
       <div class="topbar">
         <button class="sidebar-toggle hamburger" style="display:none;" aria-label="Menu"><span></span><span></span><span></span></button>
         <div class="search"><input type="search" placeholder="Search donations…"></div>
         <div class="userchip">
           <span class="badge badge-grey">Donor</span>
-          <div class="avatar">--</div>
-          <span>Loading...</span>
+          <div class="avatar">KP</div>
+          <span>Kasun Perera</span>
         </div>
       </div>
-
-      <!-- ============ MAIN CONTENT ============ -->
+      <!-- ============ MAIN PAGE CONTENT ============ -->
       <div class="content">
         <div class="page-head">
           <div>
             <h1 style="font-size:1.6rem;">My Donations</h1>
-            <div class="sub">View and manage all items you have listed for donation.</div>
+            <div class="sub">Everything you've listed, and its current status.</div>
           </div>
-          <div>
-            <a href="donor-add-donation.html" class="btn btn-primary">+ Add New Donation</a>
-          </div>
+          <div></div>
         </div>
 
-        <div class="panel">
-          <div class="table-wrap">
-            <table>
-              <thead>
-                <tr>
-                  <th>Item Name</th>
-                  <th>Category</th>
-                  <th>Quantity</th>
-                  <th>Condition</th>
-                  <th>Status</th>
-                  <th>Date Listed</th>
-                </tr>
-              </thead>
-              <tbody id="donationsTableBody">
-                <tr>
-                  <td colspan="6" style="text-align:center; color:var(--muted);">Loading your donations...</td>
-                </tr>
-              </tbody>
-            </table>
+        <div class="table-wrap">
+          <div class="table-toolbar">
+            <div class="filter-row"><select>
+                <option>All statuses</option>
+                <option>Available</option>
+                <option>Claimed</option>
+                <option>Completed</option>
+              </select></div><a href="donor-add-donation.html" class="btn btn-sm btn-primary">Add Donation</a>
           </div>
+          <table>
+            <thead>
+              <tr>
+                <th>Item</th>
+                <th>Category</th>
+                <th>Qty</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>20 Grade 10 Maths Textbooks</td>
+                <td>Textbooks</td>
+                <td>20</td>
+                <td>Negombo</td>
+                <td><span class="badge badge-blue">Claimed</span></td>
+                <td><a href="donor-tracking.html">Track</a></td>
+              </tr>
+              <tr>
+                <td>30 Exercise Books</td>
+                <td>Exercise Books</td>
+                <td>30</td>
+                <td>Negombo</td>
+                <td><span class="badge badge-blue">Available</span></td>
+                <td><a href="#">Edit</a></td>
+              </tr>
+              <tr>
+                <td>10 School Bags</td>
+                <td>School Bags</td>
+                <td>10</td>
+                <td>Negombo</td>
+                <td><span class="badge badge-green">Completed</span></td>
+                <td><a href="donor-impact.html">View</a></td>
+              </tr>
+              <tr>
+                <td>15 Scientific Calculators</td>
+                <td>Calculators</td>
+                <td>15</td>
+                <td>Negombo</td>
+                <td><span class="badge badge-grey">Cancelled</span></td>
+                <td><a href="#">Details</a></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
       </div>
     </div>
   </div>
-
   <!-- ============ PAGE SCRIPT (JS) ============ -->
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      // Sidebar Toggle
-      var sidebarToggle = document.querySelector('.sidebar-toggle');
-      var sidebar = document.querySelector('.sidebar');
-      if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', function () {
-          sidebar.classList.toggle('open');
+  function badgeFor(status) {
+    var map = {
+      available: ['badge-blue', 'Available'],
+      claimed: ['badge-blue', 'Claimed'],
+      completed: ['badge-green', 'Completed'],
+      cancelled: ['badge-grey', 'Cancelled']
+    };
+    var b = map[status] || ['badge-grey', status];
+    return '<span class="badge ' + b[0] + '">' + b[1] + '</span>';
+  }
+
+  function loadDonations() {
+    fetch('/edushare/backend/donor/my_donations.php')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        var rows = (data.donations || []).map(function(d) {
+          var action = (d.status === 'available' || d.status === 'claimed')
+            ? '<a href="#" onclick="cancelDonation(' + d.id + '); return false;">Cancel</a>'
+            : '';
+          return '<tr>' +
+            '<td>' + d.item_name + '</td>' +
+            '<td>' + (d.category_name || '-') + '</td>' +
+            '<td>' + d.quantity + '</td>' +
+            '<td>' + (d.location || '-') + '</td>' +
+            '<td>' + badgeFor(d.status) + '</td>' +
+            '<td>' + action + '</td>' +
+            '</tr>';
         });
-      }
+        document.querySelector('tbody').innerHTML =
+          rows.length ? rows.join('') : '<tr><td colspan="6">No donations yet.</td></tr>';
+      })
+      .catch(function(err) { console.log('Could not load donations:', err); });
+  }
 
-      // Fetch Logged-in User Profile Header
-      fetch('/edushare/backend/donor/dashboard.php')
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          if (data.name) {
-            var initials = data.name.split(' ').map(function (w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
-            document.querySelector('.userchip span:last-child').textContent = data.name;
-            document.querySelector('.avatar').textContent = initials;
-          }
-        })
-        .catch(function (err) { console.log('Profile header error:', err); });
+  function cancelDonation(id) {
+    if (!confirm('Cancel this donation?')) return;
+    var body = new FormData();
+    body.append('donation_id', id);
+    fetch('/edushare/backend/donor/delete_donation.php', { method: 'POST', body: body })
+      .then(function(r) { return r.json(); })
+      .then(function() { loadDonations(); });
+  }
 
-      // Fetch Real Donations List from Backend
-      fetch('/edushare/backend/donor/get_my_donations.php')
-        .then(function (r) { return r.json(); })
-        .then(function (data) {
-          var tbody = document.getElementById('donationsTableBody');
-          tbody.innerHTML = '';
-
-          if (!data || data.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 20px;">You haven\'t listed any donations yet. <a href="donor-add-donation.html">Add one now!</a></td></tr>';
-            return;
-          }
-
-          data.forEach(function (item) {
-            var badgeClass = 'badge-blue';
-            if (item.status === 'Completed') badgeClass = 'badge-green';
-            if (item.status === 'Pending') badgeClass = 'badge-grey';
-
-            var tr = document.createElement('tr');
-            tr.innerHTML = 
-              '<td><strong>' + (item.item_name || 'N/A') + '</strong></td>' +
-              '<td>' + (item.category_name || item.category_id || 'General') + '</td>' +
-              '<td>' + (item.quantity || 1) + '</td>' +
-              '<td>' + (item.condition_status || 'Good') + '</td>' +
-              '<td><span class="badge ' + badgeClass + '">' + (item.status || 'Available') + '</span></td>' +
-              '<td>' + (item.created_at ? item.created_at.split(' ')[0] : 'Today') + '</td>';
-            tbody.appendChild(tr);
-          });
-        })
-        .catch(function (err) {
-          console.log('Error loading donations:', err);
-          document.getElementById('donationsTableBody').innerHTML = '<tr><td colspan="6" style="text-align:center; color:red;">Failed to load donations. Please ensure backend endpoint is configured.</td></tr>';
-        });
-    });
-  </script>
+  loadDonations();
+</script>
 </body>
 
 </html>
