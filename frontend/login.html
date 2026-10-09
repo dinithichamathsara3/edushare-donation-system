@@ -1359,19 +1359,24 @@
       <div class="logo-row"><span class="mark" style="width:26px;height:26px;background:var(--forest);border-radius:50%;"></span><strong style="font-family:var(--serif);font-size:1.1rem;">EduShare</strong></div>
       <h2 style="text-align:center;">Log in to your account</h2>
       <p style="text-align:center;margin-bottom:22px;">Choose how you'd like to log in.</p>
+
       <div class="role-tabs">
-        <div class="role-tab active">Donor</div>
-        <div class="role-tab">Donation Receiver</div>
+        <div class="role-tab active" data-role="donor">Donor</div>
+        <div class="role-tab" data-role="institution">Donation Receiver</div>
         <a href="admin-login.html" class="role-tab" style="text-decoration:none;">Admin</a>
       </div>
-      <form>
-        <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
-        <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
+
+      <!-- Error message from the backend (shown only when there is one) -->
+      <p id="loginError" style="display:none;background:var(--red-tint);color:var(--red);padding:10px 12px;border-radius:4px;font-size:.85rem;"></p>
+
+      <form action="/edushare/backend/auth/login.php" method="post">
+        <input type="hidden" name="role" id="roleField" value="donor">
+        <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input type="password" name="password" placeholder="••••••••"></div>
         <div class="checkbox-row" style="margin-bottom:18px;"><input type="checkbox" id="remember"><label for="remember">Keep me logged in</label></div>
-        <a href="donor-dashboard.html" class="btn btn-primary btn-block">Log in as Donor</a>
+        <button type="submit" id="loginButton" class="btn btn-primary btn-block">Log in as Donor</button>
       </form>
-      <div class="divider-or">or</div>
-      <a href="receiver-dashboard.html" class="btn btn-outline btn-block">Log in as Donation Receiver</a>
+
       <p style="text-align:center;margin-top:22px;font-size:.85rem;">New here? <a href="donor-register.html">Register as a donor</a> or <a href="institution-register.html">register your institution</a>.</p>
       <p style="text-align:center;font-size:.8rem;">Note: individuals cannot select "Donation Receiver" — that option is reserved for verified institutions.</p>
     </div>
@@ -1380,34 +1385,29 @@
   <!-- ============ PAGE SCRIPT (JS) ============ -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var burger = document.querySelector('.hamburger');
-      var nav = document.querySelector('.navlinks');
-      if (burger && nav) {
-        burger.addEventListener('click', function() {
-          nav.classList.toggle('mobile-open');
-          nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-        });
-      }
-      var sidebarToggle = document.querySelector('.sidebar-toggle');
-      var sidebar = document.querySelector('.sidebar');
-      if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', function() {
-          sidebar.classList.toggle('open');
-        });
-      }
-      document.querySelectorAll('.role-tab').forEach(function(tab) {
+
+      // Switch between Donor and Donation Receiver login
+      document.querySelectorAll('.role-tab[data-role]').forEach(function(tab) {
         tab.addEventListener('click', function() {
           document.querySelectorAll('.role-tab').forEach(function(t) {
             t.classList.remove('active');
           });
           tab.classList.add('active');
+
+          var role = tab.getAttribute('data-role');
+          document.getElementById('roleField').value = role;
+          document.getElementById('loginButton').textContent =
+            role === 'institution' ? 'Log in as Donation Receiver' : 'Log in as Donor';
         });
       });
-      document.querySelectorAll('form').forEach(function(f) {
-        f.addEventListener('submit', function(e) {
-          e.preventDefault();
-        });
-      });
+
+      // Show an error message if the backend sent one (for example, wrong password)
+      var error = new URLSearchParams(window.location.search).get('error');
+      if (error) {
+        var box = document.getElementById('loginError');
+        box.textContent = error;
+        box.style.display = 'block';
+      }
     });
   </script>
 </body>

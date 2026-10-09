@@ -1383,50 +1383,57 @@
           <div></div>
         </div>
 
-        <form class="form-card">
-          <div class="form-row">
-            <div class="field"><label>Item name</label><input placeholder="Grade 10 Mathematics Textbook"></div>
-            <div class="field"><label>Category</label><select>
-                <option>Textbooks</option>
-                <option>Exercise Books</option>
-                <option>Stationery</option>
-                <option>School Bags</option>
-                <option>Calculators</option>
-                <option>Mathematical Instruments</option>
-                <option>Educational Equipment</option>
-                <option>Other</option>
-              </select></div>
-          </div>
-          <div class="form-row">
-            <div class="field"><label>Subject</label><input placeholder="Mathematics"></div>
-            <div class="field"><label>Education level</label><select>
-                <option>Primary</option>
-                <option>Grade 6–9</option>
-                <option>Grade 10–11 (O/L)</option>
-                <option>A/L</option>
-              </select></div>
-          </div>
-          <div class="form-row">
-            <div class="field"><label>Quantity</label><input type="number" placeholder="20"></div>
-            <div class="field"><label>Condition</label><select>
-                <option>New</option>
-                <option>Good</option>
-                <option>Fair</option>
-              </select></div>
-          </div>
-          <div class="field"><label>Description</label><textarea placeholder="Any details schools should know"></textarea></div>
-          <div class="field"><label>Image</label><input type="file"></div>
-          <div class="form-row">
-            <div class="field"><label>Donor location</label><input placeholder="Negombo"></div>
-            <div class="field"><label>Preferred delivery / collection</label><select>
-                <option>I can deliver</option>
-                <option>Institution collects</option>
-                <option>Either</option>
-              </select></div>
-          </div>
-          <div class="field"><label>Availability date</label><input type="date"></div>
-          <button class="btn btn-primary btn-block">List Donation</button>
-        </form>
+           <form class="form-card" action="/edushare/backend/donor/add_donation.php" method="post" enctype="multipart/form-data">
+     <div class="form-row">
+       <div class="field"><label>Item name</label><input name="item_name" placeholder="Grade 10 Mathematics Textbook"></div>
+       <div class="field"><label>Category</label>
+         <select name="category_id">
+           <option value="1">Textbooks</option>
+           <option value="2">Exercise Books</option>
+           <option value="3">Stationery</option>
+           <option value="4">School Bags</option>
+           <option value="5">Calculators</option>
+           <option value="6">Mathematical Instruments</option>
+           <option value="7">Educational Equipment</option>
+         </select>
+       </div>
+     </div>
+     <div class="form-row">
+       <div class="field"><label>Subject</label><input name="subject" placeholder="Mathematics"></div>
+       <div class="field"><label>Education level</label>
+         <select name="education_level">
+           <option>Primary</option>
+           <option>Grade 6–9</option>
+           <option>Grade 10–11 (O/L)</option>
+           <option>A/L</option>
+         </select>
+       </div>
+     </div>
+     <div class="form-row">
+       <div class="field"><label>Quantity</label><input type="number" name="quantity" min="1" placeholder="20"></div>
+       <div class="field"><label>Condition</label>
+         <select name="condition_status">
+           <option value="New">New</option>
+           <option value="Good">Good</option>
+           <option value="Fair">Fair</option>
+         </select>
+       </div>
+     </div>
+     <div class="field"><label>Description</label><textarea name="description" placeholder="Any details schools should know"></textarea></div>
+     <div class="field"><label>Image</label><input type="file" name="image"></div>
+     <div class="form-row">
+       <div class="field"><label>Donor location</label><input name="location" placeholder="Negombo"></div>
+       <div class="field"><label>Preferred delivery / collection</label>
+         <select name="delivery_pref">
+           <option value="Donor delivers">I can deliver</option>
+           <option value="Institution collects">Institution collects</option>
+           <option value="Either">Either</option>
+         </select>
+       </div>
+     </div>
+     <div class="field"><label>Availability date</label><input type="date" name="availability_date"></div>
+     <button type="submit" class="btn btn-primary btn-block">List Donation</button>
+   </form>
 
       </div>
     </div>
