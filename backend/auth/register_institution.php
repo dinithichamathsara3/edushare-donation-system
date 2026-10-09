@@ -4,7 +4,7 @@ require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirect('/public/institution-register.html');
+    redirect('/edushare/frontend/institution-register.html');
 }
 
 $fields = [
@@ -36,19 +36,19 @@ if (empty($_FILES['verification_doc']['name'])) {
     $errors[] = 'A verification document is required.';
 }
 if ($errors) {
-    redirect('/public/institution-register.html?error=' . urlencode(implode(' ', $errors)));
+    redirect('/edushare/frontend/institution-register.html?error=' . urlencode(implode(' ', $errors)));
 }
 
 $check = $pdo->prepare("SELECT id FROM institutions WHERE official_email = ?");
 $check->execute([$fields['official_email']]);
 if ($check->fetch()) {
-    redirect('/public/institution-register.html?error=' . urlencode('An institution with that email already exists.'));
+    redirect('/edushare/frontend/institution-register.html?error=' . urlencode('An institution with that email already exists.'));
 }
 
 try {
     $docPath = handle_upload('verification_doc', 'verification_docs');
 } catch (InvalidArgumentException $e) {
-    redirect('/public/institution-register.html?error=' . urlencode($e->getMessage()));
+    redirect('/edushare/frontend/institution-register.html?error=' . urlencode($e->getMessage()));
 }
 
 $hash = password_hash($pass, PASSWORD_DEFAULT);
@@ -68,4 +68,4 @@ $stmt->execute([
 ]);
 
 // Institutions cannot log in until an admin approves them — send them to a "pending" page.
-redirect('/public/registration-submitted.html');
+redirect('/edushare/frontend/registration-submitted.html');

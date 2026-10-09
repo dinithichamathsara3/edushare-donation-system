@@ -1370,22 +1370,22 @@
       <span class="eyebrow">Donor Registration</span>
       <h1>Register as a donor</h1>
       <p>Create an account to start listing educational items you'd like to donate.</p>
-      <form class="form-card">
+      <form class="form-card" action="/edushare/backend/auth/register_donor.php" method="post" enctype="multipart/form-data">
         <div class="form-row">
-          <div class="field"><label>Full name</label><input type="text" placeholder="Kasun Perera"></div>
-          <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+          <div class="field"><label>Full name</label><input type="text" name="full_name" placeholder="Kasun Perera"></div>
+          <div class="field"><label>Email</label><input type="email" name="email" placeholder="you@example.com"></div>
         </div>
         <div class="form-row">
-          <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
-          <div class="field"><label>Confirm password</label><input type="password" placeholder="••••••••"></div>
+          <div class="field"><label>Password</label><input type="password" name="password" placeholder="••••••••"></div>
+          <div class="field"><label>Confirm password</label><input type="password" name="confirm_password" placeholder="••••••••"></div>
         </div>
         <div class="form-row">
-          <div class="field"><label>Phone number</label><input type="tel" placeholder="07X XXX XXXX"></div>
-          <div class="field"><label>Location</label><input type="text" placeholder="Select on map / enter city"></div>
+          <div class="field"><label>Phone number</label><input type="tel" name="phone" placeholder="07X XXX XXXX"></div>
+          <div class="field"><label>Location</label><input type="text" name="location" placeholder="Select on map / enter city"></div>
         </div>
-        <div class="field"><label>Address</label><textarea placeholder="Street, city, district"></textarea></div>
+        <div class="field"><label>Address</label><textarea name="address" placeholder="Street, city, district"></textarea></div>
         <div class="field"><label>Profile image <span style="font-weight:400;color:var(--ink-soft);">(optional)</span></label><input type="file"></div>
-        <a href="donor-dashboard.html" class="btn btn-primary btn-block">Create Donor Account</a>
+              <button type="submit" class="btn btn-primary btn-block">Create Donor Account</button>
         <p style="text-align:center;margin-top:14px;font-size:.85rem;">Already have an account? <a href="login.html">Log in</a></p>
       </form>
     </div>
@@ -1448,11 +1448,7 @@
           tab.classList.add('active');
         });
       });
-      document.querySelectorAll('form').forEach(function(f) {
-        f.addEventListener('submit', function(e) {
-          e.preventDefault();
-        });
-      });
+      
     });
   </script>
 </body>

@@ -29,6 +29,7 @@ $myPoints = (int) $points->fetchColumn();
 
 // From here, either render an HTML view with these variables, or return JSON for a fetch()-driven front end:
 json_response([
+    'name' => $_SESSION['user_name'],
     'summary' => $summary,
     'recent_donations' => $recentDonations,
     'points' => $myPoints,

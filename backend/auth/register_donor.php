@@ -4,7 +4,7 @@ require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirect('/public/donor-register.html');
+    redirect('/edushare/frontend/donor-register.html');
 }
 
 $name    = clean($_POST['full_name'] ?? '');
@@ -23,14 +23,14 @@ if (strlen($pass) < 8) $errors[] = 'Password must be at least 8 characters.';
 if ($pass !== $confirm) $errors[] = 'Passwords do not match.';
 
 if ($errors) {
-    redirect('/public/donor-register.html?error=' . urlencode(implode(' ', $errors)));
+    redirect('/edushare/frontend/donor-register.html?error=' . urlencode(implode(' ', $errors)));
 }
 
 // ---- Duplicate check ----
 $check = $pdo->prepare("SELECT id FROM donors WHERE email = ?");
 $check->execute([$email]);
 if ($check->fetch()) {
-    redirect('/public/donor-register.html?error=' . urlencode('An account with that email already exists.'));
+    redirect('/edushare/frontend/donor-register.html?error=' . urlencode('An account with that email already exists.'));
 }
 
 // ---- Insert ----
@@ -43,4 +43,4 @@ $stmt->execute([$name, $email, $hash, $phone, $address, $location]);
 $donorId = (int) $pdo->lastInsertId();
 
 login_session('donor', $donorId, $name);
-redirect('/donor/dashboard.php');
+redirect('/edushare/frontend/donor-dashboard.html');

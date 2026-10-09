@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/functions.php';
 require_role('donor');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirect('/donor/add_donation_form.html');
+    redirect('/edushare/frontend/donor-add-donation.html');
 }
 
 $itemName   = clean($_POST['item_name'] ?? '');
@@ -22,13 +22,13 @@ $delivery   = clean($_POST['delivery_pref'] ?? 'Either');
 $availDate  = $_POST['availability_date'] ?? null;
 
 if ($itemName === '' || $quantity < 1) {
-    redirect('/donor/add_donation_form.html?error=' . urlencode('Item name and a valid quantity are required.'));
+    redirect('/edushare/frontend/donor-add-donation.html?error=' . urlencode('Item name and a valid quantity are required.'));
 }
 
 try {
     $image = handle_upload('image', 'donation_images');
 } catch (InvalidArgumentException $e) {
-    redirect('/donor/add_donation_form.html?error=' . urlencode($e->getMessage()));
+    redirect('/edushare/frontend/donor-add-donation.html?error=' . urlencode($e->getMessage()));
 }
 
 $stmt = $pdo->prepare(
@@ -42,4 +42,4 @@ $stmt->execute([
     $condition, $desc, $image, $location, $delivery, $availDate ?: null,
 ]);
 
-redirect('/donor/my_donations.php?success=' . urlencode('Donation listed successfully.'));
+redirect('/edushare/frontend/donor-my-donations.html?success=' . urlencode('Donation listed successfully.'));

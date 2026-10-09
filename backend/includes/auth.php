@@ -37,7 +37,7 @@ function is_logged_in(): bool {
  */
 function require_role(string $role): void {
     if (current_role() !== $role) {
-        $login = $role === 'admin' ? '/auth/admin_login.php' : '/auth/login.php';
+        $login = $role === 'admin' ? '/edushare/frontend/admin-login.html' : '/edushare/frontend/login.html';
         header('Location: ' . $login . '?error=please_log_in');
         exit;
     }

@@ -1350,7 +1350,6 @@
     }
   </style>
 </head>
-
 <body>
 
   <div class="app-shell">
@@ -1362,6 +1361,7 @@
         <a href="index.html"><span class="dot"></span>Log out</a>
       </div>
     </aside>
+
     <div class="main">
       <!-- ============ DASHBOARD TOP BAR (search + user info) ============ -->
       <div class="topbar">
@@ -1373,6 +1373,7 @@
           <span>Kasun Perera</span>
         </div>
       </div>
+
       <!-- ============ MAIN PAGE CONTENT ============ -->
       <div class="content">
         <div class="page-head">
@@ -1389,6 +1390,7 @@
           <div class="stat"><span class="num">5</span><span class="label">Completed Donations</span></div>
           <div class="stat"><span class="num">18</span><span class="label">Nearby Schools</span></div>
         </div>
+
         <div class="grid grid-2" style="margin-bottom:26px;">
           <div class="panel">
             <h3>Urgent needs near you</h3>
@@ -1405,6 +1407,7 @@
               </div>
             </div>
           </div>
+
           <div class="panel">
             <h3>Your recent donations</h3>
             <div class="table-wrap">
@@ -1433,12 +1436,13 @@
             </div>
           </div>
         </div>
-        <a href="donor-add-donation.html" class="btn btn-primary">Add a Donation</a>
 
+        <a href="donor-add-donation.html" class="btn btn-primary">Add a Donation</a>
       </div>
     </div>
   </div>
-  <!-- ============ PAGE SCRIPT (JS) ============ -->
+
+  <!-- ============ PAGE SCRIPT (JS): menu and tab behaviour ============ -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       var burger = document.querySelector('.hamburger');
@@ -1456,20 +1460,27 @@
           sidebar.classList.toggle('open');
         });
       }
-      document.querySelectorAll('.role-tab').forEach(function(tab) {
-        tab.addEventListener('click', function() {
-          document.querySelectorAll('.role-tab').forEach(function(t) {
-            t.classList.remove('active');
-          });
-          tab.classList.add('active');
-        });
-      });
-      document.querySelectorAll('form').forEach(function(f) {
-        f.addEventListener('submit', function(e) {
-          e.preventDefault();
-        });
-      });
     });
+  </script>
+
+  <!-- ============ LOAD THE LOGGED-IN DONOR'S REAL DATA FROM THE BACKEND ============ -->
+  <script>
+    fetch('/edushare/backend/donor/dashboard.php')
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (!data.name) return;   // not logged in, keep the sample text
+
+        var initials = data.name.split(' ').map(function(w) { return w[0]; }).join('').slice(0, 2).toUpperCase();
+        document.querySelector('.page-head h1').textContent = 'Welcome, ' + data.name.split(' ')[0];
+        document.querySelector('.userchip span:last-child').textContent = data.name;
+        document.querySelector('.avatar').textContent = initials;
+
+        var nums = document.querySelectorAll('.stat .num');
+        nums[0].textContent = data.summary.total_donations || 0;
+        nums[1].textContent = data.summary.accepted || 0;
+        nums[2].textContent = data.summary.completed || 0;
+      })
+      .catch(function(err) { console.log('Dashboard data not loaded:', err); });
   </script>
 </body>
 

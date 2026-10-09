@@ -4,7 +4,7 @@ require_once __DIR__ . '/../includes/auth.php';
 require_once __DIR__ . '/../includes/functions.php';
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirect('/public/admin-login.html');
+    redirect('/edushare/frontend/admin-login.html');
 }
 
 $email = clean($_POST['email'] ?? '');
@@ -16,8 +16,8 @@ $admin = $stmt->fetch();
 
 if (!$admin || !password_verify($pass, $admin['password_hash'])) {
     // Same generic message whether the email or password was wrong (avoid leaking which one).
-    redirect('/public/admin-login.html?error=' . urlencode('Invalid admin credentials.'));
+    redirect('/edushare/frontend/admin-login.html?error=' . urlencode('Invalid admin credentials.'));
 }
 
 login_session('admin', (int) $admin['id'], $admin['name']);
-redirect('/admin/dashboard.php');
+redirect('/edushare/frontend/admin-dashboard.html');
