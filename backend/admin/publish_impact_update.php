@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/functions.php';
 require_role('admin');
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirect('/admin/impact_upload.html');
+    redirect('/edushare/frontend/admin-impact-upload.html');
 }
 
 $claimId = (int) ($_POST['claim_id'] ?? 0);
@@ -18,16 +18,16 @@ $claim->execute([$claimId]);
 $claim = $claim->fetch();
 
 if (!$claim) {
-    redirect('/admin/impact_upload.html?error=' . urlencode('Choose a completed claim to attach a photo to.'));
+    redirect('/edushare/frontend/admin-impact-upload.html?error=' . urlencode('Choose a completed claim to attach a photo to.'));
 }
 
 try {
     $photo = handle_upload('photo', 'impact_photos');
 } catch (InvalidArgumentException $e) {
-    redirect('/admin/impact_upload.html?error=' . urlencode($e->getMessage()));
+    redirect('/edushare/frontend/admin-impact-upload.html?error=' . urlencode($e->getMessage()));
 }
 if (!$photo) {
-    redirect('/admin/impact_upload.html?error=' . urlencode('A photo is required.'));
+    redirect('/edushare/frontend/admin-impact-upload.html?error=' . urlencode('A photo is required.'));
 }
 
 $stmt = $pdo->prepare(
@@ -41,4 +41,4 @@ add_notification(
     'See how your donation made a difference — a new photo update was just posted.'
 );
 
-redirect('/admin/impact_upload.html?success=' . urlencode('Impact update published.'));
+redirect('/edushare/frontend/admin-impact-upload.html?success=' . urlencode('Impact update published.'));

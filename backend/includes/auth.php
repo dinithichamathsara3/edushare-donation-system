@@ -50,7 +50,7 @@ function require_approved_institution(PDO $pdo): void {
     $stmt->execute([current_id()]);
     $status = $stmt->fetchColumn();
     if ($status !== 'approved') {
-        header('Location: /receiver/pending_verification.php');
+        header('Location: /edushare/frontend/login.html?error=Your+institution+is+not+approved+yet');
         exit;
     }
 }

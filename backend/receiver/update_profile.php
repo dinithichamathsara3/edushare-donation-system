@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/functions.php';
 require_role('institution'); // profile can be edited even while pending
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirect('/receiver/profile.html');
+    redirect('/edushare/frontend/receiver-profile.html');
 }
 
 $contactPerson = clean($_POST['contact_person'] ?? '');
@@ -20,4 +20,4 @@ $stmt = $pdo->prepare(
 );
 $stmt->execute([$contactPerson, $contactNumber, $address, $description, current_id()]);
 
-redirect('/receiver/profile.html?success=' . urlencode('Profile updated.'));
+redirect('/edushare/frontend/receiver-profile.html?success=' . urlencode('Profile updated.'));

@@ -7,7 +7,7 @@ require_once __DIR__ . '/../includes/functions.php';
 require_approved_institution($pdo);
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    redirect('/receiver/add_requirement_form.html');
+    redirect('/edushare/frontend/receiver-add-requirement.html');
 }
 
 $itemName   = clean($_POST['item_name'] ?? '');
@@ -20,7 +20,7 @@ $desc       = clean($_POST['description'] ?? '');
 $urgent     = isset($_POST['is_urgent']) ? 'urgent' : 'normal';
 
 if ($itemName === '' || $quantity < 1) {
-    redirect('/receiver/add_requirement_form.html?error=' . urlencode('Item name and a valid quantity are required.'));
+    redirect('/edushare/frontend/receiver-add-requirement.html?error=' . urlencode('Item name and a valid quantity are required.'));
 }
 
 $stmt = $pdo->prepare(
@@ -34,4 +34,4 @@ $stmt->execute([
     $quantity, $reqDate ?: null, $desc, $urgent,
 ]);
 
-redirect('/receiver/my_requirements.php?success=' . urlencode('Requirement posted.'));
+redirect('/edushare/frontend/receiver-my-requirements.html?success=' . urlencode('Requirement posted.'));
