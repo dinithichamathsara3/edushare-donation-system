@@ -1358,10 +1358,13 @@
       <div class="logo-row"><span class="mark" style="width:26px;height:26px;background:var(--marigold);border-radius:50%;"></span><strong style="font-family:var(--serif);font-size:1.1rem;">EduShare Admin</strong></div>
       <h2 style="text-align:center;">Administrator login</h2>
       <p style="text-align:center;margin-bottom:22px;">Restricted access for system administrators.</p>
-      <form>
-        <div class="field"><label>Admin email</label><input type="email" placeholder="admin@edushare.example"></div>
-        <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
-        <a href="admin-dashboard.html" class="btn btn-primary btn-block">Log in to Admin Dashboard</a>
+
+      <p id="loginError" style="display:none;background:var(--red-tint);color:var(--red);padding:10px 12px;border-radius:4px;font-size:.85rem;"></p>
+
+      <form action="/edushare/backend/auth/admin_login.php" method="post">
+        <div class="field"><label>Admin email</label><input type="email" name="email" required placeholder="admin@edushare.example"></div>
+        <div class="field"><label>Password</label><input type="password" name="password" required placeholder="••••••••"></div>
+        <button type="submit" class="btn btn-primary btn-block">Log in to Admin Dashboard</button>
       </form>
       <p style="text-align:center;margin-top:22px;font-size:.85rem;"><a href="login.html">Back to donor / institution login</a></p>
     </div>
@@ -1370,34 +1373,14 @@
   <!-- ============ PAGE SCRIPT (JS) ============ -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var burger = document.querySelector('.hamburger');
-      var nav = document.querySelector('.navlinks');
-      if (burger && nav) {
-        burger.addEventListener('click', function() {
-          nav.classList.toggle('mobile-open');
-          nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
-        });
+      var error = new URLSearchParams(window.location.search).get('error');
+      if (error) {
+        var box = document.getElementById('loginError');
+        box.textContent = error === 'please_log_in'
+          ? 'Please log in as an administrator.'
+          : error;
+        box.style.display = 'block';
       }
-      var sidebarToggle = document.querySelector('.sidebar-toggle');
-      var sidebar = document.querySelector('.sidebar');
-      if (sidebarToggle && sidebar) {
-        sidebarToggle.addEventListener('click', function() {
-          sidebar.classList.toggle('open');
-        });
-      }
-      document.querySelectorAll('.role-tab').forEach(function(tab) {
-        tab.addEventListener('click', function() {
-          document.querySelectorAll('.role-tab').forEach(function(t) {
-            t.classList.remove('active');
-          });
-          tab.classList.add('active');
-        });
-      });
-      document.querySelectorAll('form').forEach(function(f) {
-        f.addEventListener('submit', function(e) {
-          e.preventDefault();
-        });
-      });
     });
   </script>
 </body>
