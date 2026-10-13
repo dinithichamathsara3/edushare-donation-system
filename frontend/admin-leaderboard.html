@@ -1359,7 +1359,7 @@
       <a href="index.html" class="brand"><span class="mark"></span>EduShare</a>
       <nav><a href="admin-dashboard.html" class=""><span class="dot"></span>Dashboard</a><a href="admin-verification.html" class=""><span class="dot"></span>Institution Verification</a><a href="admin-manage-donors.html" class=""><span class="dot"></span>Manage Donors</a><a href="admin-manage-receivers.html" class=""><span class="dot"></span>Manage Receivers</a><a href="admin-manage-donations.html" class=""><span class="dot"></span>Manage Donations</a><a href="admin-manage-requests.html" class=""><span class="dot"></span>Manage Requests</a><a href="admin-manage-claims.html" class=""><span class="dot"></span>Manage Claims</a><a href="admin-urgent.html" class=""><span class="dot"></span>Urgent Requests</a><a href="admin-categories.html" class=""><span class="dot"></span>Categories</a><a href="admin-reports.html" class=""><span class="dot"></span>Reports</a><a href="admin-leaderboard.html" class="active"><span class="dot"></span>Best Donors Ranking</a><a href="admin-impact-upload.html" class=""><span class="dot"></span>Upload Impact Updates</a><a href="admin-notifications.html" class=""><span class="dot"></span>Notifications</a><a href="admin-history.html" class=""><span class="dot"></span>Donation History</a></nav>
       <div class="sidefoot">
-        <a href="index.html"><span class="dot"></span>Log out</a>
+        <a href="/edushare/backend/auth/logout.php"><span class="dot"></span>Log out</a>
       </div>
     </aside>
     <div class="main">
@@ -1491,7 +1491,10 @@
     fetch('/edushare/backend/auth/whoami.php')
       .then(function(r) { return r.json(); })
       .then(function(me) {
-        if (!me.logged_in) return;   // not logged in: keep the sample text
+        if (!me.logged_in || me.role !== 'admin') {
+          window.location.href = 'admin-login.html?error=' + encodeURIComponent('Please log in as an administrator.');
+          return;
+        }
 
         var chip = document.querySelector('.userchip');
         if (chip) {
